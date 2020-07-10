@@ -1,0 +1,162 @@
+# You can edit this file by hand, but it's recommended not to do that.
+
+# Marks:
+'H
+	/home/ragnarock/
+	..
+1594330096
+'b
+	/home/ragnarock/bin/
+	..
+1594330096
+'h
+	/home/ragnarock/
+	..
+1594330096
+
+# Bookmarks:
+
+# TUI:
+al
+q0
+v2
+ov
+m-1
+l2
+r2
+
+# Left window history (oldest to newest):
+d/home/ragnarock
+	Documents
+2
+d/home/ragnarock/Documents
+	..
+0
+d/home/ragnarock
+	Downloads
+3
+d/home/ragnarock/Downloads
+	..
+0
+d/home/ragnarock
+	dmenu
+5
+d/home/ragnarock/dmenu
+	..
+0
+d/home/ragnarock
+	dmenu
+5
+d/home/ragnarock/dmenu
+	dmenu.c.orig
+13
+d/home/ragnarock
+	.config
+3
+d/home/ragnarock/.config
+	vifm
+20
+d/home/ragnarock/.config/vifm
+	colors
+1
+d/home/ragnarock/.config/vifm/colors
+	..
+0
+d/home/ragnarock/.config/vifm
+	colors
+1
+d/home/ragnarock/.config/vifm/colors
+	..
+0
+d/home/ragnarock/.config/vifm
+	colors
+1
+d/home/ragnarock/.config/vifm/colors
+	..
+0
+d/home/ragnarock/.config/vifm
+	colors
+1
+d
+
+# Right window history (oldest to newest):
+D/home/ragnarock
+	..
+0
+D/home
+	ragnarock
+1
+D/home/ragnarock
+	Desktop
+1
+D/home/ragnarock/Desktop
+	..
+0
+D/home/ragnarock
+	Downloads
+3
+D/home/ragnarock/Downloads
+	dot
+2
+D/home/ragnarock/Downloads/dot
+	dotfiles-master
+1
+D/home/ragnarock/Downloads/dot/dotfiles-master
+	dwmblocks
+1
+D/home/ragnarock/Downloads/dot
+	dotfiles-master
+1
+D/home/ragnarock/Downloads/dot/dotfiles-master
+	..
+0
+D/home/ragnarock/Downloads/dot
+	dotfiles-master
+1
+D/home/ragnarock/Downloads/dot/dotfiles-master
+	dwmblocks
+1
+D/home/ragnarock/Downloads/dot/dotfiles-master/dwmblocks
+	..
+0
+D/home/ragnarock/Downloads/dot/dotfiles-master
+	..
+0
+D/home/ragnarock/Downloads/dot
+	dotfiles-master
+1
+D
+
+# Command line history (oldest to newest):
+:set colorscheme Iceberg
+:zo
+:hi TabLineSel ctermfg=Red ctermbg=Yellow
+:hi TabLine ctermfg=Blue ctermbg=Yellow
+:colorscheme Default
+:colorscheme Iceberg
+:colorscheme DT
+:q
+
+# Search history (oldest to newest):
+/.config
+
+# Prompt history (oldest to newest):
+
+# Local filter history (oldest to newest):
+
+# Registers:
+
+# Directory stack (oldest to newest):
+
+# Trash content:
+
+# State:
+f
+i1
+[.0
+[F
+F
+I1
+].1
+]F
+s0
