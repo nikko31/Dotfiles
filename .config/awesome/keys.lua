@@ -118,8 +118,14 @@ keys.clientbuttons = gears.table.join(
     ),
 
     -- Move and Resize Client
-    awful.button({modkey}, 1, awful.mouse.client.move),
-    awful.button({modkey}, 3, awful.mouse.client.resize)
+    awful.button({modkey}, 1, 
+        awful.mouse.client.move, 
+        {description="move client", group="client"}
+    ),
+    awful.button({modkey}, 3,
+        awful.mouse.client.resize,
+        {description="move client", group="client"}
+    )
 )
 
 
@@ -150,21 +156,38 @@ keys.globalkeys = gears.table.join(
         end,
         {description = "launch dmenu", group = "launcher"}
     ),
+    -- =============================================
+    -- SPAWN APPLICATION KEY BINDINGS (Super+Alt+Key)
+    -- =============================================
+
     --launch firefox
-    awful.key({ modkey }, "b",
+    awful.key({ modkey, altkey }, "b",
         function ()
             awful.spawn(apps.browser)
         end,
-        {description = "open browser", group = "launcher"}
+        {description = "open "..apps.browser, group = "launcher"}
+    ),
+    --launch NeoVim
+    awful.key({ modkey, altkey }, "v", 
+        function () 
+            awful.spawn( terminal.." -e "..apps.editor )
+        end,
+        {description = "open "..apps.editor , group = "launcher" }
+    ),
+    --launch code
+    awful.key({ modkey, altkey }, "c", 
+        function () 
+            awful.spawn( apps.guieditor )
+        end,
+        {description = "open "..apps.guieditor , group = "launcher" }
     ),
     --launch file manager
-    awful.key({ modkey }, "f",
+    awful.key({ modkey, altkey }, "f",
         function ()
-            awful.spawn(apps.filebrowser)
+            awful.spawn(terminal.." -e "..apps.filebrowser)
         end,
-        {description = "open file manager", group = "launcher"}
+        {description = "open file manager "..apps.filebrowser, group = "launcher"}
     ),
-    
     -- =========================================
     -- FUNCTION KEYS
     -- =========================================
@@ -196,6 +219,7 @@ keys.globalkeys = gears.table.join(
     ),
 
           -- ALSA volume control
+   --[[
    awful.key({}, "XF86AudioRaiseVolume",
       function()
          awful.spawn("amixer -D pulse sset Master 5%+", false)
@@ -235,6 +259,29 @@ keys.globalkeys = gears.table.join(
       end,
       {description = "play/pause music", group = "hotkeys"}
    ),
+   --]]
+
+   -- PULSE volume control
+    --awful.key({ modkey1 }, "Up",
+    awful.key({ }, "XF86AudioRaiseVolume",
+        function ()
+            os.execute(string.format("pactl -- set-sink-volume 0 +1%%", beautiful.volume.channel))
+            beautiful.volume.update()
+        end
+    ),
+    --awful.key({ modkey1 }, "Down",
+    awful.key({ }, "XF86AudioLowerVolume",
+        function ()
+            os.execute(string.format("pactl -- set-sink-volume 0 -1%%", beautiful.volume.channel))
+            beautiful.volume.update()
+        end
+    ),
+    awful.key({ }, "XF86AudioMute",
+        function ()
+            os.execute(string.format("pactl -- set-sink-mute 0 toggle", beautiful.volume.togglechannel or beautiful.volume.channel))
+            beautiful.volume.update()
+        end
+    ),
 
     -- Screenshot on prtscn using scrot
     awful.key({}, "Print",
@@ -389,32 +436,38 @@ keys.globalkeys = gears.table.join(
    awful.key({modkey, modkey1}, "Left",
       function(c)
          resize_client(client.focus, "left")
-      end
+      end,
+      {description = "resize left", group = "client"}
    ),
    awful.key({modkey, modkey1}, "Right",
       function(c)
          resize_client(client.focus, "right")
-      end
+      end,
+      {description = "resize right", group = "client"}
    ),
    awful.key({modkey, modkey1}, "j",
       function(c)
          resize_client(client.focus, "down")
-      end
+      end,
+      {description = "resize down", group = "client"}
    ),
    awful.key({ modkey, modkey1 }, "k",
       function(c)
          resize_client(client.focus, "up")
-      end
+      end,
+      {description = "resize up", group = "client"}
    ),
    awful.key({modkey, modkey1}, "h",
       function(c)
          resize_client(client.focus, "left")
-      end
+      end,
+      {description = "resize left", group = "client"}
    ),
    awful.key({modkey, modkey1}, "l",
       function(c)
          resize_client(client.focus, "right")
-      end
+      end,
+      {description = "resize right", group = "client"}
    ),
              
     -- =========================================
@@ -507,6 +560,41 @@ keys.globalkeys = gears.table.join(
             end
         end,
         {description = "restore minimized", group = "client"}
+    ),
+    -- =========================================
+    -- TAGGING
+    -- =========================================
+
+    awful.key({ modkey, "Shift" }, "n", 
+        function () 
+            lain.util.add_tag() 
+        end,
+        {description = "add new tag", group = "tag"}
+    ),
+
+    awful.key({ modkey, "Control" }, "r", 
+        function () 
+            lain.util.rename_tag() 
+        end,
+        {description = "rename tag", group = "tag"}
+    ),
+    awful.key({ modkey, "Shift" }, "Left", 
+        function () 
+            lain.util.move_tag(-1) 
+        end,
+        {description = "move tag to the left", group = "tag"}
+    ),
+    awful.key({ modkey, "Shift" }, "Right", 
+        function () 
+            lain.util.move_tag(1) 
+        end,
+        {description = "move tag to the right", group = "tag"}
+    ),
+    awful.key({ modkey, "Shift" }, "d", 
+        function () 
+            lain.util.delete_tag() 
+        end,
+        {description = "delete tag", group = "tag"}
     )
 )
 
@@ -560,7 +648,7 @@ for i = 1, 9 do
                     tag:view_only()
                 end
             end,
-            {description = "view tag #"..i, group = "tag"}
+            {description = "view tag #", group = "tag"}
         ),
         -- Move client to tag
         awful.key({ modkey, "Shift" }, "#" .. i + 9,
@@ -572,7 +660,19 @@ for i = 1, 9 do
                     end
                 end
             end,
-            {description = "move focused client to tag #"..i, group = "tag"}
+            {description = "move focused client to tag #", group = "tag"}
+        ),
+        -- Toggle tag on focused client.
+        awful.key({ modkey, modkey1, "Shift" }, "#" .. i + 9,
+            function ()
+                if client.focus then
+                    local tag = client.focus.screen.tags[i]
+                    if tag then
+                        client.focus:toggle_tag(tag)
+                    end
+                end
+            end,
+            {description = "toggle focused client on tag #", group = "tag"}
         )
     )
 end
