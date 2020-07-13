@@ -104,6 +104,7 @@ alias paclo='pacman -Qdt'    # list orphans
 alias pacro='paclo && sudo pacman -Rns $(pacman -Qtdq)' # remove orphans
 alias pacc='pacman -Scc'    # clean cache
 alias paclf='pacman -Ql'   # list files
+alias pacli='for i in `pacman -Qe | cut -d" " -f1`; do pacman -Qs $i | grep -A1 --color "local/$i\s"; done'   #list installed packages and info
 alias config='/usr/bin/git --git-dir=$HOME/.cfg/ --work-tree=$HOME' #git for dotfiles
 alias nv='nvim'
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
