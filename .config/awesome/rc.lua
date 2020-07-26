@@ -242,6 +242,11 @@ root.buttons(my_table.join(
 
 
 -- {{{ Key bindings
+-- Import Keybinds
+local keys = require("keys")
+--root.keys(keys.globalkeys)
+--root.buttons(keys.desktopbuttons)
+
 globalkeys = my_table.join(
 
     -- {{{ Personal keybindings
@@ -644,6 +649,7 @@ root.keys(globalkeys)
 -- Rules to apply to new clients (through the "manage" signal).
 -- Import rules
 local create_rules = require("rules").create
+-- awful.rules.rules = create_rules(keys.clientkeys, keys.clientbuttons)
 awful.rules.rules = create_rules(clientkeys, clientbuttons)
 -- }}}
 
