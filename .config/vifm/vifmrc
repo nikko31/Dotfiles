@@ -64,7 +64,7 @@ set norunexec
 
 " Selected color scheme
 
-colorscheme Default
+colorscheme Iceberg
 
 " Format for displaying time in file list. For example:
 " TIME_STAMP_FORMAT=%m/%d-%H:%M
@@ -238,7 +238,8 @@ filextype *.bmp,*.jpg,*.jpeg,*.png,*.gif,*.xpm
         \ {View in shotwell}
         \ shotwell,
 fileviewer *.bmp,*.jpg,*.jpeg,*.png,*.gif,*.xpm
-         \ identify %f
+        \ identify %f
+
 
 " OpenRaster
 filextype *.ora
@@ -499,3 +500,4 @@ nnoremap <f8> :delete<cr>
 "     vifm --server-name "$VIFM_SERVER_NAME" --remote +"cd '$PWD'"
 "
 " let $VIFM_SERVER_NAME = v:servername
+set dotfiles

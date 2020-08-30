@@ -1,0 +1,21 @@
+2020/08/29-13:42:41.788 a07 Reusing MANIFEST /home/nikko31/.config/BraveSoftware/Brave-Browser/Default/Local Storage/leveldb/MANIFEST-000001
+2020/08/29-13:42:41.788 a07 Recovering log #81
+2020/08/29-13:42:41.789 a07 Reusing old log /home/nikko31/.config/BraveSoftware/Brave-Browser/Default/Local Storage/leveldb/000081.log 
+2020/08/29-13:43:51.672 bd0 Level-0 table #85: started
+2020/08/29-13:43:51.685 bd0 Level-0 table #85: 71743 bytes OK
+2020/08/29-13:43:51.695 bd0 Delete type=0 #81
+2020/08/29-13:43:51.696 bd0 Compacting 4@0 + 1@1 files
+2020/08/29-13:43:51.732 bd0 Generated table #86@0: 184 keys, 592172 bytes
+2020/08/29-13:43:51.732 bd0 Compacted 4@0 + 1@1 files => 592172 bytes
+2020/08/29-13:43:51.743 bd0 compacted to: files[ 0 1 1 0 0 0 0 ]
+2020/08/29-13:43:51.743 bd0 Delete type=2 #76
+2020/08/29-13:43:51.743 bd0 Delete type=2 #82
+2020/08/29-13:43:51.743 bd0 Delete type=2 #80
+2020/08/29-13:43:51.743 bd0 Delete type=2 #78
+2020/08/29-13:43:51.743 bd0 Delete type=2 #85
+2020/08/29-14:13:23.744 bd0 Level-0 table #88: started
+2020/08/29-14:13:23.758 bd0 Level-0 table #88: 115118 bytes OK
+2020/08/29-14:13:23.769 bd0 Delete type=0 #84
+2020/08/29-14:22:44.940 bd0 Level-0 table #90: started
+2020/08/29-14:22:44.953 bd0 Level-0 table #90: 61252 bytes OK
+2020/08/29-14:22:44.963 bd0 Delete type=0 #87

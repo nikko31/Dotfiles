@@ -79,7 +79,7 @@ window:
   #gtk_theme_variant: None
 
 scrolling:
-  # Maximum number of lines in the scrollback buffer.
+  #'t seem to find any documentation  Maximum number of lines in the scrollback buffer.
   # Specifying '0' will disable scrolling.
   history: 1000
   
@@ -540,3 +540,8 @@ key_bindings:
   - { key: PageDown,  mods: Shift,   action: ScrollPageDown, mode: ~Alt       }
   - { key: Home,      mods: Shift,   action: ScrollToTop,    mode: ~Alt       }
   - { key: End,       mods: Shift,   action: ScrollToBottom, mode: ~Alt       }
+  - { key: Left,     mods: Control, chars: "\x1bb"                }
+  - { key: Left,     mods: Shift,   chars: "\x1b[1;2D"            }
+  - { key: Right,    mods: Control, chars: "\x1bf"                }
+  - { key: Right,    mods: Shift,   chars: "\x1b[1;2C"            }
+  - { key: Delete,                  chars: "\x1b[3~"              }

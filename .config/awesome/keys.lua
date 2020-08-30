@@ -5,6 +5,7 @@
 
 local awful = require("awful")
 local gears = require("gears")
+local lain = require("lain")
 local naughty = require("naughty")
 local beautiful = require("beautiful")
 local dpi = beautiful.xresources.apply_dpi
@@ -17,7 +18,7 @@ local apps = require("apps").default
 -- Define mod keys
 local modkey       = "Mod4"
 local altkey       = "Mod1"
-local modkey1      = "Control"
+local control      = "Control"
 
 --Define module table
 local keys = {}
@@ -139,8 +140,10 @@ keys.globalkeys = gears.table.join(
     -- SPAWN APPLICATION KEY BINDINGS
     -- =========================================
 
-    awful.key({ modkey }, "s",      hotkeys_popup.show_help,
-              {description="show help", group="awesome"}),
+    awful.key({ modkey }, "s",
+        hotkeys_popup.show_help,
+        {description="show help", group="awesome"}
+    ),
     -- Spawn terminal              
     awful.key({ modkey }, "Return",
         function ()
@@ -148,13 +151,12 @@ keys.globalkeys = gears.table.join(
         end,
         {description = "open a terminal", group = "launcher"}
     ),
-    -- launch dmenu
+    -- launch rofi
     awful.key({ modkey, "Shift" }, "Return",
         function ()
-            awful.spawn(string.format("dmenu_run",
-            beautiful.bg_normal, beautiful.fg_normal, beautiful.bg_focus, beautiful.fg_focus))
+            awful.spawn(apps.launcher)
         end,
-        {description = "launch dmenu", group = "launcher"}
+        {description = "launch rofi", group = "launcher"}
     ),
     -- =============================================
     -- SPAWN APPLICATION KEY BINDINGS (Super+Alt+Key)
@@ -218,58 +220,15 @@ keys.globalkeys = gears.table.join(
         {description = "-5%", group = "hotkeys"}
     ),
 
-          -- ALSA volume control
-   --[[
-   awful.key({}, "XF86AudioRaiseVolume",
-      function()
-         awful.spawn("amixer -D pulse sset Master 5%+", false)
-         awesome.emit_signal("volume_change")
-      end,
-      {description = "volume up", group = "hotkeys"}
-   ),
-   awful.key({}, "XF86AudioLowerVolume",
-      function()
-         awful.spawn("amixer -D pulse sset Master 5%-", false)
-         awesome.emit_signal("volume_change")
-      end,
-      {description = "volume down", group = "hotkeys"}
-   ),
-   awful.key({}, "XF86AudioMute",
-      function()
-         awful.spawn("amixer -D pulse set Master 1+ toggle", false)
-         awesome.emit_signal("volume_change")
-      end,
-      {description = "toggle mute", group = "hotkeys"}
-   ),
-   awful.key({}, "XF86AudioNext",
-      function()
-         awful.spawn("mpc next", false)
-      end,
-      {description = "next music", group = "hotkeys"}
-   ),
-   awful.key({}, "XF86AudioPrev",
-      function()
-         awful.spawn("mpc prev", false)
-      end,
-      {description = "previous music", group = "hotkeys"}
-   ),
-   awful.key({}, "XF86AudioPlay",
-      function()
-         awful.spawn("mpc toggle", false)
-      end,
-      {description = "play/pause music", group = "hotkeys"}
-   ),
-   --]]
-
    -- PULSE volume control
-    --awful.key({ modkey1 }, "Up",
+    --awful.key({ control }, "Up",
     awful.key({ }, "XF86AudioRaiseVolume",
         function ()
             os.execute(string.format("pactl -- set-sink-volume 0 +1%%", beautiful.volume.channel))
             beautiful.volume.update()
         end
     ),
-    --awful.key({ modkey1 }, "Down",
+    --awful.key({ control }, "Down",
     awful.key({ }, "XF86AudioLowerVolume",
         function ()
             os.execute(string.format("pactl -- set-sink-volume 0 -1%%", beautiful.volume.channel))
@@ -280,6 +239,21 @@ keys.globalkeys = gears.table.join(
         function ()
             os.execute(string.format("pactl -- set-sink-mute 0 toggle", beautiful.volume.togglechannel or beautiful.volume.channel))
             beautiful.volume.update()
+        end
+    ),
+    awful.key({}, "XF86AudioNext",
+        function()
+            awful.spawn("mpc next", false)
+        end
+    ),
+    awful.key({}, "XF86AudioPrev",
+        function()
+            awful.spawn("mpc prev", false)
+        end
+    ),
+    awful.key({}, "XF86AudioPlay",
+        function()
+            awful.spawn("mpc toggle", false)
         end
     ),
 
@@ -380,6 +354,16 @@ keys.globalkeys = gears.table.join(
         {description = "focus right", group = "client"}
     ),
 
+    -- Tag browsing alt + tab
+    awful.key({ modkey }, "Tab",
+        awful.tag.viewnext,
+        {description = "view next", group = "tag"}
+    ),
+    awful.key({ modkey, "Shift" }, "Tab",
+        awful.tag.viewprev,
+        {description = "view previous", group = "tag"}
+    ),
+
     -- Focus client by index (cycle through clients)
     awful.key({ altkey }, "Tab",
         function ()
@@ -396,10 +380,10 @@ keys.globalkeys = gears.table.join(
 
 
     -- Toggle floating and change master (per ora non funziona)
-    awful.key({ modkey, modkey1 }, "space",  awful.client.floating.toggle                     ,
-              {description = "toggle floating", group = "client"}),
-  --  awful.key({ modkey, modkey1 }, "Return", function (c) c:swap(awful.client.getmaster()) end,
-  --          {description = "move to master", group = "client"}),
+    awful.key({ modkey, control }, "space",
+        awful.client.floating.toggle                     ,
+        {description = "toggle floating", group = "client"}
+    ),
 
     -- =========================================
     -- GAP CONTROL
@@ -423,47 +407,47 @@ keys.globalkeys = gears.table.join(
     -- CLIENT RESIZING
     -- =========================================
 	
-   awful.key({modkey, modkey1}, "Down",
+   awful.key({modkey, control}, "Down",
       function(c)
          resize_client(client.focus, "down")
       end
    ),
-   awful.key({modkey, modkey1}, "Up",
+   awful.key({modkey, control}, "Up",
       function(c)
          resize_client(client.focus, "up")
       end
    ),
-   awful.key({modkey, modkey1}, "Left",
+   awful.key({modkey, control}, "Left",
       function(c)
          resize_client(client.focus, "left")
       end,
       {description = "resize left", group = "client"}
    ),
-   awful.key({modkey, modkey1}, "Right",
+   awful.key({modkey, control}, "Right",
       function(c)
          resize_client(client.focus, "right")
       end,
       {description = "resize right", group = "client"}
    ),
-   awful.key({modkey, modkey1}, "j",
+   awful.key({modkey, control}, "j",
       function(c)
          resize_client(client.focus, "down")
       end,
       {description = "resize down", group = "client"}
    ),
-   awful.key({ modkey, modkey1 }, "k",
+   awful.key({ modkey, control }, "k",
       function(c)
          resize_client(client.focus, "up")
       end,
       {description = "resize up", group = "client"}
    ),
-   awful.key({modkey, modkey1}, "h",
+   awful.key({modkey, control}, "h",
       function(c)
          resize_client(client.focus, "left")
       end,
       {description = "resize left", group = "client"}
    ),
-   awful.key({modkey, modkey1}, "l",
+   awful.key({modkey, control}, "l",
       function(c)
          resize_client(client.focus, "right")
       end,
@@ -543,6 +527,18 @@ keys.globalkeys = gears.table.join(
             awful.layout.inc(-1)
         end,
         {description = "select previous layout", group = "layout"}
+    ),
+    awful.key({ modkey }, ".",
+        function ()
+            awful.screen.focus_relative( 1) 
+        end,
+        {description = "focus the next screen", group = "screen"}
+    ),
+    awful.key({ modkey }, ",",
+        function ()
+            awful.screen.focus_relative(-1) 
+        end,
+        {description = "focus the previous screen", group = "screen"}
     ),
 
     -- =========================================
@@ -633,6 +629,20 @@ keys.clientkeys = gears.table.join(
             c:raise()
         end,
         {description = "(un)maximize", group = "client"}
+    ),
+     -- Move to other screen
+    awful.key({ modkey, }, "o",
+        function (c) 
+            c:move_to_screen()
+        end,
+        {description = "move to screen", group = "client"}
+    ),
+
+    awful.key({ modkey, "Control" }, "Return", 
+        function (c)
+            c:swap(awful.client.getmaster()) 
+        end,
+        {description = "move to master", group = "client"}
     )
 )
 
@@ -663,7 +673,7 @@ for i = 1, 9 do
             {description = "move focused client to tag #", group = "tag"}
         ),
         -- Toggle tag on focused client.
-        awful.key({ modkey, modkey1, "Shift" }, "#" .. i + 9,
+        awful.key({ modkey, control, "Shift" }, "#" .. i + 9,
             function ()
                 if client.focus then
                     local tag = client.focus.screen.tags[i]

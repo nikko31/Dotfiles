@@ -2,17 +2,21 @@
 
 # Marks:
 'H
-	/home/ragnarock/
+	/home/nikko31/
 	..
-1594330096
+1598430886
 'b
-	/home/ragnarock/bin/
+	/home/nikko31/bin/
 	..
-1594330096
+1598430886
 'h
-	/home/ragnarock/
+	/home/nikko31/
 	..
-1594330096
+1598430886
+'z
+	/home/nikko31/.config/vifm
+	..
+1598430886
 
 # Bookmarks:
 
@@ -26,119 +30,46 @@ l2
 r2
 
 # Left window history (oldest to newest):
-d/home/ragnarock
-	Documents
+d/home/nikko31
+	..
+0
+d/home
+	nikko31
 2
-d/home/ragnarock/Documents
-	..
-0
-d/home/ragnarock
-	Downloads
-3
-d/home/ragnarock/Downloads
-	..
-0
-d/home/ragnarock
-	dmenu
+d/
+	mnt
+8
+d/mnt
+	home_dir
 5
-d/home/ragnarock/dmenu
-	..
-0
-d/home/ragnarock
-	dmenu
-5
-d/home/ragnarock/dmenu
-	dmenu.c.orig
-13
-d/home/ragnarock
+d/mnt/home_dir
 	.config
-3
-d/home/ragnarock/.config
-	vifm
-20
-d/home/ragnarock/.config/vifm
-	colors
-1
-d/home/ragnarock/.config/vifm/colors
+2
+d/mnt/home_dir/.config
 	..
 0
-d/home/ragnarock/.config/vifm
-	colors
-1
-d/home/ragnarock/.config/vifm/colors
-	..
-0
-d/home/ragnarock/.config/vifm
-	colors
-1
-d/home/ragnarock/.config/vifm/colors
-	..
-0
-d/home/ragnarock/.config/vifm
-	colors
-1
+d/mnt/home_dir
+	.config
+2
+d/mnt
+	home_dir
+8
+d/
+	home
+4
 d
 
 # Right window history (oldest to newest):
-D/home/ragnarock
+D/home/nikko31
 	..
 0
-D/home
-	ragnarock
-1
-D/home/ragnarock
-	Desktop
-1
-D/home/ragnarock/Desktop
-	..
-0
-D/home/ragnarock
-	Downloads
-3
-D/home/ragnarock/Downloads
-	dot
-2
-D/home/ragnarock/Downloads/dot
-	dotfiles-master
-1
-D/home/ragnarock/Downloads/dot/dotfiles-master
-	dwmblocks
-1
-D/home/ragnarock/Downloads/dot
-	dotfiles-master
-1
-D/home/ragnarock/Downloads/dot/dotfiles-master
-	..
-0
-D/home/ragnarock/Downloads/dot
-	dotfiles-master
-1
-D/home/ragnarock/Downloads/dot/dotfiles-master
-	dwmblocks
-1
-D/home/ragnarock/Downloads/dot/dotfiles-master/dwmblocks
-	..
-0
-D/home/ragnarock/Downloads/dot/dotfiles-master
-	..
-0
-D/home/ragnarock/Downloads/dot
-	dotfiles-master
-1
 D
 
 # Command line history (oldest to newest):
-:set colorscheme Iceberg
-:zo
-:hi TabLineSel ctermfg=Red ctermbg=Yellow
-:hi TabLine ctermfg=Blue ctermbg=Yellow
-:colorscheme Default
-:colorscheme Iceberg
-:colorscheme DT
 :q
 
 # Search history (oldest to newest):
-/.config
+/,config
 
 # Prompt history (oldest to newest):
 
@@ -157,6 +88,6 @@ i1
 [F
 F
 I1
-].1
+].0
 ]F
 s0

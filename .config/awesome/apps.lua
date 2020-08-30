@@ -19,13 +19,13 @@ local apps = {}
 apps.default = {
     terminal = "alacritty",
     virtualmachine = "kvm",
-    launcher = "dmenu_run -i",
+    launcher = "rofi -normal-window -modi drun -show drun",
     lock = "xsecurelock",
     screenshot = "gnome-screenshot",
     filebrowser = "vifm",
-    browser = "firefox",
+    browser = "brave",
     editor = "nvim",
-    guieditor = "code"
+    guieditor = "codium"
 }
 
 -- List of apps to start once on start-up

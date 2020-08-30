@@ -1,0 +1,9 @@
+[2020-08-30 14:15:30.430] [sharedprocess] [info] main {"machineId":"b07391fbe9dd531b9aa33632df4c67e6b510ed4c05110b5afd809d86ab8d2508","windowId":2}
+[2020-08-30 14:15:30.440] [sharedprocess] [error] [File Watcher (node.js)] Error: ENOENT: no such file or directory, stat '/home/nikko31/.config/VSCodium/User/snippets'
+[2020-08-30 14:16:10.437] [sharedprocess] [info] Starting to clean up unused language packs.
+[2020-08-30 14:17:39.189] [sharedprocess] [info] Installing extension: vscode-icons-team.vscode-icons
+[2020-08-30 14:17:46.315] [sharedprocess] [info] Downloaded extension: vscode-icons-team.vscode-icons /home/nikko31/.config/VSCodium/CachedExtensionVSIXs/vscode-icons-team.vscode-icons-10.2.0
+[2020-08-30 14:17:47.081] [sharedprocess] [info] Extracted extension to /home/nikko31/.vscode-oss/extensions/.vscode-icons-team.vscode-icons-10.2.0: vscode-icons-team.vscode-icons
+[2020-08-30 14:17:47.082] [sharedprocess] [info] Renamed to /home/nikko31/.vscode-oss/extensions/vscode-icons-team.vscode-icons-10.2.0
+[2020-08-30 14:17:47.083] [sharedprocess] [info] Installation completed. vscode-icons-team.vscode-icons
+[2020-08-30 14:17:47.095] [sharedprocess] [info] Extensions installed successfully: vscode-icons-team.vscode-icons
