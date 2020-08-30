@@ -1,8 +1,0 @@
-2020/08/29-13:55:27.690 1b89 Reusing MANIFEST /home/nikko31/.config/BraveSoftware/Brave-Browser/Default/IndexedDB/https_www.youtube.com_0.indexeddb.leveldb/MANIFEST-000001
-2020/08/29-13:55:27.690 1b89 Recovering log #42
-2020/08/29-13:55:27.690 1b89 Reusing old log /home/nikko31/.config/BraveSoftware/Brave-Browser/Default/IndexedDB/https_www.youtube.com_0.indexeddb.leveldb/000042.log 
-2020/08/29-13:55:59.880 cdd Level-0 table #46: started
-2020/08/29-13:55:59.880 cdd Level-0 table #46: 0 bytes OK
-2020/08/29-13:55:59.892 cdd Delete type=0 #42
-2020/08/29-13:55:59.892 cdd Manual compaction at level-0 from (begin) .. (end); will stop at (end)
-2020/08/29-13:55:59.892 cdd Manual compaction at level-1 from (begin) .. (end); will stop at (end)

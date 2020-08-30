@@ -1,6 +1,0 @@
-2020/08/30-13:46:02.776 5a7 Reusing MANIFEST /home/nikko31/.config/BraveSoftware/Brave-Browser/Default/Local Storage/leveldb/MANIFEST-000001
-2020/08/30-13:46:02.776 5a7 Recovering log #89
-2020/08/30-13:46:02.777 5a7 Reusing old log /home/nikko31/.config/BraveSoftware/Brave-Browser/Default/Local Storage/leveldb/000089.log 
-2020/08/30-14:09:32.088 25f4 Level-0 table #93: started
-2020/08/30-14:09:32.109 25f4 Level-0 table #93: 299753 bytes OK
-2020/08/30-14:09:32.121 25f4 Delete type=0 #89
