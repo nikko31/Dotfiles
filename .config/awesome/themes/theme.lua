@@ -308,6 +308,7 @@ function theme.at_screen_connect(s)
             spr,
         },
         require("widgets.calendar"),
+        --:require("widgets.mounting"),
         { -- Right widgets
             layout = wibox.layout.fixed.horizontal,
             

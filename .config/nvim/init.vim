@@ -10,6 +10,7 @@ Plug 'digitaltoad/vim-pug'
 Plug 'vim-airline/vim-airline'
 Plug 'cakebaker/scss-syntax.vim'
 Plug 'pangloss/vim-javascript'
+Plug 'vimwiki/vimwiki'
 
 call plug#end()
 
@@ -27,6 +28,12 @@ hi Terminal guibg=none
 hi Normal guibg=none
 
 autocmd BufNewFile,BufRead *.json.template set syntax=json
+
+" }}}
+
+" vimwiki {{{
+set nocompatible
+let g:vimwiki_listsyms = '✗○◐●✓'
 
 " }}}
 
@@ -98,6 +105,8 @@ let g:airline_powerline_fonts = 1
 "}}}
 
 " VIMRC {{{
+
+let g:vimwiki_list = [{'path': '~/Documents/University/vimwiki', 'syntax': 'markdown', 'ext': '.md'}]
 
 nnoremap <leader>ev :vsp $MYVIMRC<CR>
 nnoremap <leader>sv :source $MYVIMRC <bar> :doautocmd BufRead<CR>
