@@ -36,5 +36,5 @@ alias \
   config="/usr/bin/git --git-dir=$HOME/.cfg/ --work-tree=$HOME"
 
 #Emacs
-alias \
-  emacs='emacs -q --load "$HOME/.config/emacs/init.el"'
+#alias \
+#  emacs='emacs -q --load "$HOME/.config/emacs/init.el"'
