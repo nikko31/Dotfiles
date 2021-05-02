@@ -8,16 +8,19 @@ local beautiful = require("beautiful")
 
 local screen_height = awful.screen.focused().geometry.height
 local screen_width = awful.screen.focused().geometry.width
+-- Default Applications
+local apps = require("apps").default
 
 -- personal variables
 --change these variables if you want
-local browser           = "firefox"
-local editor            = "nvim"
-local editorgui         = "code"
-local filemanager       = "vifm"
+
+--local browser           = "brave"
+--local editor            = "nvim"
+--local editorgui         = "code"
+--local filemanager       = "vifm"
 local mediaplayer       = "vlc"
-local terminal          = "alacritty"
-local virtualmachine    = "kvm"
+--local terminal          = "kitty"
+--local virtualmachine    = "kvm"
 
 --local dpi = beautiful.xresources.apply_dpi
 
@@ -52,13 +55,13 @@ function rules.create(clientkeys, clientbuttons)
             properties = { titlebars_enabled = false }
     },
     { 
-        rule = { class = browser },
-          properties = { screen = 1, tag = "[ WWW ]" }
+        rule = { class = apps.browser },
+          properties = { screen = 1, tag = "1" }
     },
 
     { 
-        rule = { class = editorgui },
-          properties = { screen = 1, tag = " DOC " }
+        rule = { class = apps.guieditor },
+          properties = { screen = 1, tag = "2" }
     },
 
     { 

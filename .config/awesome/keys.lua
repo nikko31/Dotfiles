@@ -5,7 +5,6 @@
 
 local awful = require("awful")
 local gears = require("gears")
-local lain = require("lain")
 local naughty = require("naughty")
 local beautiful = require("beautiful")
 local dpi = beautiful.xresources.apply_dpi
@@ -27,7 +26,6 @@ local keys = {}
 -- ===================================================================
 -- Movement Functions (Called by some keybinds)
 -- ===================================================================
-
 
 -- Move client to given direction
 local function move_client(c, direction)
@@ -54,7 +52,6 @@ local function move_client(c, direction)
         awful.client.swap.bydirection(direction, c, nil)
     end
 end
-
 
 -- Resize client in given direction
 local floating_resize_amount = dpi(20)
@@ -92,6 +89,51 @@ local function raise_client()
    end
 end
 
+-- Add a new tag                                                                                                                                                                                        
+function add_tag(layout)
+    awful.prompt.run {
+        prompt       = "New tag name: ",
+        textbox      = awful.screen.focused().mypromptbox.widget,
+        exe_callback = function(name)
+            if not name or #name == 0 then return end
+            awful.tag.add(name, { screen = awful.screen.focused(), layout = layout or awful.layout.suit.tile }):view_only()
+        end
+    }
+end    
+   
+-- Rename current tag
+function rename_tag()
+    awful.prompt.run {
+        prompt       = "Rename tag: ",
+        textbox      = awful.screen.focused().mypromptbox.widget,
+        exe_callback = function(new_name)
+            if not new_name or #new_name == 0 then return end
+            local t = awful.screen.focused().selected_tag
+            if t then
+                t.name = new_name
+            end
+        end
+    }
+end
+
+-- Move current tag
+-- pos in {-1, 1} <-> {previous, next} tag position
+function move_tag(pos)
+    local tag = awful.screen.focused().selected_tag
+    if tonumber(pos) <= -1 then
+        awful.tag.move(tag.index - 1, tag)
+    else
+        awful.tag.move(tag.index + 1, tag)
+    end
+end
+
+-- Delete current tag
+-- Any rule set on the tag shall be broken
+function delete_tag()
+    local t = awful.screen.focused().selected_tag
+    if not t then return end
+    t:delete()
+end
 
 -- ===================================================================
 -- Mouse bindings
@@ -158,18 +200,28 @@ keys.globalkeys = gears.table.join(
         end,
         {description = "launch rofi", group = "launcher"}
     ),
+    awful.key({ modkey }, "x",    
+        function ()
+            awful.prompt.run {
+              prompt       = "Run Lua code: ",
+              textbox      = awful.screen.focused().mypromptbox.widget,
+              exe_callback = awful.util.eval,
+              history_path = awful.util.get_cache_dir() .. "/history_eval"
+            }  
+        end,
+        {description = "lua execute prompt", group = "awesome"}),
     -- =============================================
     -- SPAWN APPLICATION KEY BINDINGS (Super+Alt+Key)
     -- =============================================
 
-    --launch firefox
+    --launch browser
     awful.key({ modkey, altkey }, "b",
         function ()
             awful.spawn(apps.browser)
         end,
         {description = "open "..apps.browser, group = "launcher"}
     ),
-    --launch NeoVim
+    --launch editor
     awful.key({ modkey, altkey }, "v", 
         function () 
             awful.spawn( terminal.." -e "..apps.editor )
@@ -222,7 +274,23 @@ keys.globalkeys = gears.table.join(
 
    -- PULSE volume control
     --awful.key({ control }, "Up",
-    awful.key({ }, "XF86AudioRaiseVolume",
+    awful.key({ }, "XF86AudioRaiseVolume", 
+      function () 
+        awful.util.spawn("pactl set-sink-volume 0 +2%", false) 
+      end
+    ),
+    awful.key({ }, "XF86AudioLowerVolume", 
+      function () 
+        awful.util.spawn("pactl set-sink-volume 0 -2%", false) 
+      end
+    ),
+    awful.key({ }, "XF86AudioMute", 
+      function () 
+        awful.util.spawn("pactl set-sink-mute 0 toggle", false) 
+      end
+    ),
+
+    --[[ awful.key({ }, "XF86AudioRaiseVolume",
         function ()
             os.execute(string.format("pactl -- set-sink-volume 0 +1%%", beautiful.volume.channel))
             beautiful.volume.update()
@@ -240,7 +308,8 @@ keys.globalkeys = gears.table.join(
             os.execute(string.format("pactl -- set-sink-mute 0 toggle", beautiful.volume.togglechannel or beautiful.volume.channel))
             beautiful.volume.update()
         end
-    ),
+    ), ]]--
+
     awful.key({}, "XF86AudioNext",
         function()
             awful.spawn("mpc next", false)
@@ -276,11 +345,10 @@ keys.globalkeys = gears.table.join(
 
     -- Quit Awesome
     awful.key({modkey}, "Escape",
-       function()
           -- emit signal to show the exit screen
-          awesome.emit_signal("show_exit_screen")
-       end,
-       {description = "quit awesome", group = "awesome"}
+          --awesome.emit_signal("show_exit_screen")
+        awesome.quit,
+        {description = "quit awesome", group = "awesome"}
     ),
 
     awful.key({}, "XF86PowerOff",
@@ -376,13 +444,6 @@ keys.globalkeys = gears.table.join(
             awful.client.focus.byidx(-1)
         end,
         {description = "focus previous by index", group = "client"}
-    ),
-
-
-    -- Toggle floating and change master (per ora non funziona)
-    awful.key({ modkey, control }, "space",
-        awful.client.floating.toggle                     ,
-        {description = "toggle floating", group = "client"}
     ),
 
     -- =========================================
@@ -563,32 +624,32 @@ keys.globalkeys = gears.table.join(
 
     awful.key({ modkey, "Shift" }, "n", 
         function () 
-            lain.util.add_tag() 
+            add_tag() 
         end,
         {description = "add new tag", group = "tag"}
     ),
 
     awful.key({ modkey, "Control" }, "r", 
         function () 
-            lain.util.rename_tag() 
+            rename_tag() 
         end,
         {description = "rename tag", group = "tag"}
     ),
     awful.key({ modkey, "Shift" }, "Left", 
         function () 
-            lain.util.move_tag(-1) 
+            move_tag(-1) 
         end,
         {description = "move tag to the left", group = "tag"}
     ),
     awful.key({ modkey, "Shift" }, "Right", 
         function () 
-            lain.util.move_tag(1) 
+            move_tag(1) 
         end,
         {description = "move tag to the right", group = "tag"}
     ),
     awful.key({ modkey, "Shift" }, "d", 
         function () 
-            lain.util.delete_tag() 
+            delete_tag() 
         end,
         {description = "delete tag", group = "tag"}
     )

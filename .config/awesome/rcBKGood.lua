@@ -1,7 +1,6 @@
 -- If LuaRocks is installed, make sure that packages installed through it are
 -- found (e.g. lgi). If LuaRocks is not installed, do nothing.
 pcall(require, "luarocks.loader")
-
 -- Standard awesome library
 local gears = require("gears")
 local awful = require("awful")
@@ -27,10 +26,6 @@ local theme = beautiful.init("~/.config/awesome/themes/nord/theme.lua")
 -- Number of attached monitors
 local monitors = screen:count()
 
--- Default Applications
-local apps = require("apps").default
- 
-
 -- Used later for screen rule that break without this check
 -- It is equal to min(monitors, 2), where 2 is the monitor in which I want those programs in a multi monitor setup
 local minscreen
@@ -49,7 +44,7 @@ local update_taglist = function (item, tag, index)
   elseif #tag:clients() > 0 then
     item.markup = helpers.colorize_text(beautiful.taglist_text_occupied[index], beautiful.taglist_fg_occupied)
   else
-    item.markup = helpers.colorize_text(beautiful.taglist_text_empty[index], beautiful.taglist_fg_empty)
+    irem.markup = helpers.colorize_text(beautiful.taglist_text_empty[index], beautiful.taglist_fg_empty)
   end
 end
 
@@ -71,10 +66,11 @@ local autostart = function(...)
       end
    end
 end
-              -- This is used later as the default terminal and editor to run.
-terminal = apps.terminal
-editor = apps.editor -- os.getenv("EDITOR") or "nano"
-editor_cmd = terminal .. " " .. editor
+
+               -- This is used later as the default rerminal and editor to run.
+terminal = "kitty"
+editor = "nvim" -- os.getenv("EDITOR") or "nano"
+editor_cmd = "kitty nvim"
 
 -- Default modkey.
 -- Usually, Mod4 is the key with a logo between Control and Alt.
@@ -84,9 +80,6 @@ editor_cmd = terminal .. " " .. editor
 modkey       = "Mod4"
 altkey       = "Mod1"
 modkey1      = "Control"
-
--- Notifications icon size
---naughty.config.defaults['icon_size'] = 80
 
 -- Table of layouts to cover with awful.layout.inc, order matters.
 awful.layout.layouts = {
@@ -173,7 +166,7 @@ local function set_wallpaper(s)
         if type(wallpaper) == "function" then
             wallpaper = wallpaper(s)
         end
-        gears.wallpaper.maximized(wallpaper, s)
+        gears.wallpaper.maximized(wallpaper, s, true)
     end
 end
 
@@ -185,6 +178,7 @@ screen.connect_signal("property::geometry", set_wallpaper)
 awful.screen.connect_for_each_screen(function(s)
     -- Wallpaper
     set_wallpaper(s)
+
 
     -- Each screen has its own tag table.
     awful.tag({ "1", "2", "3", "4", "5", "6", "7", "8", "9" }, s, awful.layout.layouts[1])
@@ -219,7 +213,7 @@ awful.screen.connect_for_each_screen(function(s)
         buttons = taglist_buttons
     }
 
-    --[[ Create a tasklist widget
+    -- Create a tasklist widget
     s.mytasklist = awful.widget.tasklist {
         screen  = s,
         filter  = awful.widget.tasklist.filter.focused,
@@ -232,10 +226,10 @@ awful.screen.connect_for_each_screen(function(s)
           --  widget        = wibox.container.background,
           --},
           {
-            {
-                id     = 'clienticon',
-                widget = awful.widget.clienticon,
-            },
+            --{
+            --    id     = 'clienticon',
+            --    widget = awful.widget.clienticon,
+            --},
             margins = 5,
             widget  = wibox.container.margin
           },
@@ -243,7 +237,52 @@ awful.screen.connect_for_each_screen(function(s)
           layout = wibox.layout.align.vertical,
         },
         -- buttons = tasklist_buttons
-    }]]--
+    }
+--[[
+    s.mytasklist = awful.widget.tasklist {
+    screen   = s,
+    filter   = awful.widget.tasklist.filter.currenttags,
+    buttons  = tasklist_buttons,
+    layout   = {
+        spacing_widget = {
+            {
+                forced_width  = 5,
+                forced_height = 24,
+                thickness     = 1,
+                color         = '#777777',
+                widget        = wibox.widget.separator
+            },
+            valign = 'center',
+            halign = 'center',
+            widget = wibox.container.place,
+        },
+        spacing = 1,
+        layout  = wibox.layout.fixed.horizontal
+    },
+    -- Notice that there is *NO* wibox.wibox prefix, it is a template,
+    -- not a widget instance.
+    widget_template = {
+        {
+            wibox.widget.base.make_widget(),
+            forced_height = 5,
+            id            = 'background_role',
+            widget        = wibox.container.background,
+        },
+        {
+            {
+                id     = 'clienticon',
+                widget = awful.widget.clienticon,
+            },
+            margins = 5,
+            widget  = wibox.container.margin
+        },
+        nil,
+        create_callback = function(self, c, index, objects) --luacheck: no unused args
+            self:get_children_by_id('clienticon')[1].client = c
+        end,
+        layout = wibox.layout.align.vertical,
+    },
+}]]--
 
     -- Create the wibox
     s.mywibox = awful.wibar({ position = "top", screen = s , bg = beautiful.bg_normal})
@@ -360,13 +399,3 @@ client.connect_signal("unfocus", function(c) c.border_color = beautiful.border_n
 -- }}}
 
 -- Custom commands
-
-
---if helpers.file_exists(gears.filesystem.get_configuration_dir().."reload.lck") then
---  os.remove(gears.filesystem.get_configuration_dir().."reload.lck")
---else
---  autostart('kitty', {'telegram-desktop', 'discord', 'firefox'}, {'env LD_PRELOAD=/usr/lib/spotify-adblock.so spotify %U', '/usr/lib/xfce-polkit/xfce-polkit'})
---end
--- naughty.notify({title = "theme color for bar:", text = beautiful.tasklist_bg_normal})
---require("awful.autofocus")
-

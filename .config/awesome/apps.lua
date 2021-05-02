@@ -17,14 +17,14 @@ local apps = {}
 
 
 apps.default = {
-    terminal = "alacritty",
+    terminal = os.getenv("TERMINAL"),
     virtualmachine = "kvm",
     launcher = "rofi -normal-window -modi drun -show drun",
     lock = "xsecurelock",
     screenshot = "gnome-screenshot",
     filebrowser = "vifm",
-    browser = "brave",
-    editor = "nvim",
+    browser = os.getenv("BROWSER"),
+    editor = os.getenv("EDITOR"),
     guieditor = "codium"
 }
 
