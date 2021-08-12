@@ -1,0 +1,43 @@
+#!/bin/sh
+
+# Use neovim for vim if present.
+[ -x "$(command -v nvim)" ] && alias vim="nvim" vimdiff="nvim -d" nv="nvim"
+
+# Use $XINITRC variable if file exists.
+[ -f "$XINITRC" ] && alias startx="startx $XINITRC"
+
+# Verbosity and settings that you pretty much just always are going to want.
+alias \
+	cp="cp -iv" \
+	mv="mv -iv" \
+	rm="rm -vI" \
+  mkd="mkdir -pv" \
+
+# Colorize commands when possible.
+alias \
+	ls="ls -hN --color=auto --group-directories-first" \
+	grep="grep --color=auto" \
+	diff="diff --color=auto" \
+
+# These common commands are just too long! Abbreviate them.
+alias \
+  sdn="sudo shutdown -h now" \
+  p="sudo pacman" \
+  ls="exa -al --color=always --group-directories-first" \
+  lt="exa -aT --color=always --group-directories-first" # tree listing
+
+# Pacman shortcuts
+alias \
+  paclo="pacman -Qdt"  
+alias \
+  pacro='paclo && sudo pacman -Rns $(pacman -Qtdq)' 
+alias \
+  pacc="pacman -Scc"
+
+# Dotfiles
+alias \
+  config="/usr/bin/git --git-dir=$HOME/.cfg/ --work-tree=$HOME"
+
+#Emacs
+#alias \
+#  emacs='emacs -q --load "$HOME/.config/emacs/init.el"'
